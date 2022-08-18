@@ -1,5 +1,11 @@
 <?php
 
+session_start();
+
+if (!isset($_SESSION["login"])) {
+    header("Location:login.php");
+}
+
 require 'functions.php';
 
 $buku = query("SELECT * FROM buku");
