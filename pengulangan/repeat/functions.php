@@ -74,6 +74,65 @@ function tambah($data)
     }
 
 
+
+    return mysqli_affected_rows($conn);
+}
+
+
+function hapus($id)
+{
+    global $conn;
+
+    mysqli_query($conn, "DELETE FROM buku WHERE id = $id");
+    return mysqli_affected_rows($conn);
+}
+
+function ubah($data)
+{
+    global $conn;
+    global $conn;
+    global $judul_buku_err;
+    global $penerbit_err;
+    global $tahun_terbit_err;
+    global $gambar_err;
+
+    $id = $data["id"];
+    $judul_buku = trim(stripslashes(htmlspecialchars($data["judul_buku"])));
+    $penerbit = trim(stripslashes(htmlspecialchars($data["penerbit"])));
+    $tahun_terbit = trim(stripslashes(htmlspecialchars($data["tahun_terbit"])));
+    $gambar = trim(stripslashes(htmlspecialchars($data["gambar"])));
+
+    if (empty($judul_buku)) {
+        $judul_buku_err = "Judul Buku Tidak Boleh Kosong";
+        return 0;
+    }
+
+    if (!preg_match("/^[a-zA-Z ]*$/", $judul_buku)) {
+        $judul_buku_err = "Only letters and white space allowed";
+        return 0;
+    }
+
+
+    if (empty($penerbit)) {
+        $penerbit_err = "Penerbit Buku Tidak Boleh Kosong";
+        return 0;
+    }
+
+
+    if (empty($tahun_terbit)) {
+        $tahun_terbit_err = "Tahun Terbit Buku Tidak Boleh Kosong";
+        return 0;
+    }
+
+    if (empty($gambar)) {
+        $gambar_err = "Gambar Buku Tidak Boleh Kosong";
+    }
+
+    if (!empty($judul_buku) && !empty($penerbit) && !empty($tahun_terbit) && !empty($gambar) && preg_match("/^[a-zA-Z ]*$/", $judul_buku)) {
+
+        mysqli_query($conn, "UPDATE buku SET judul_buku='$judul_buku',penerbit='$penerbit', tahun_terbit='$tahun_terbit', gambar='$gambar' WHERE id=$id");
+    }
+
     return mysqli_affected_rows($conn);
 }
 

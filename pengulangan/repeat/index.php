@@ -26,6 +26,7 @@ $datas = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buku"));
 </head>
 
 <body>
+    <h1><a href="logout.php">Logout</a></h1>
     <h1>Admin Toko Buku</h1>
     <p>Selamat datang, selamat bekerja</p>
 
@@ -44,7 +45,7 @@ $datas = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buku"));
         </tr>
         <?php if ($datas < 1) : ?>
             <tr>
-                <td colspan="6" style="text-align:center ;">Data kosong</td>
+                <td colspan="6" style="text-align:center;">Data kosong</td>
             </tr>
         <?php endif; ?>
         <?php $no = 1; ?>
@@ -58,8 +59,8 @@ $datas = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buku"));
                 <td><?php echo $row["penerbit"]; ?></td>
                 <td><?php echo $row["tahun_terbit"]; ?></td>
                 <td>
-                    <a href="">Edit</a> |
-                    <a href="">Hapus</a>
+                    <a href="ubah.php?id=<?php echo $row["id"] ?>">Edit</a> |
+                    <a href="hapus.php?id=<?php echo $row["id"]; ?>">Hapus</a>
                 </td>
             </tr>
 
